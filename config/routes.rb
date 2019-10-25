@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   namespace 'api' do
       
     resources :carts, :only => [:index, :update, :create];
+    post '/auth/login', to: 'authentication#login';
+
     # put '/cart', controller: 'shopping_cart', action: 'update';
-      # get '/survivors/reports', controller: 'survivors', action: 'reports';
+    # get '/survivors/reports', controller: 'survivors', action: 'reports';
 
   end
 end
