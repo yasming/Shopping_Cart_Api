@@ -5,9 +5,37 @@ module Api
         before_action :authorize_request
 
         def create
-            User.create(username: "yasmin", email:"yasmin", password: "123")
+
+            quantity = params[:quantity]
+            product_id = params[:product_id]
+        
+            product = Product.find(product_id)
+            cart = @current_user.cart
+            
+            if(!cart)
+                cart = Cart.create(user_id: @current_user.id)
+            end
+            cart.add_product(product, quantity)
+
             return render json: self.api_response("foi", "foi", "foi"),status: :ok
-         
+        end
+
+        def apply_coupon
+            cart = @current_user.cart
+            coupon_code = params[:coupon]
+            coupon = Coupon.find_by(code: coupon_code.try(:downcase))
+
+            # raise Coupon::NotFound, 'This coupon does not exist' if coupon_code && !coupon
+            if coupon_code && !coupon
+
+                return render json: self.api_response("Coupon not found", "foi", "foi"),status: :not_found
+
+            else
+                cart.coupon_id = coupon.id
+                cart.save
+                return render json: self.api_response("Coupon has been applied", cart, "foi"),status: :ok
+
+            end
         end
 
     end
