@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
 		{message: message, data: data}
 	end
 
-	def not_found
-		render json: { error: 'not_found' }
+	def checkout_response(subtotal, coupon, shipping_fee, total)
+		{subtotal: subtotal, coupon: coupon, shipping_fee: shipping_fee, total: total}
 	end
 	
 	def authorize_request
