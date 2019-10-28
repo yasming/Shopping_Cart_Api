@@ -48,11 +48,11 @@ PostgreSQL
 
 
 ```
-POST
 
-http://localhost:8000/api/auth/login
+POST http://localhost:8000/api/auth/login
 
 This endpoint will authenticate the user
+
 ```
 
 ```
