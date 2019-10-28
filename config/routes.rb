@@ -6,9 +6,7 @@ Rails.application.routes.draw do
 
     resources :carts, :only => [:index, :update, :create];
     post '/carts/applycoupon', to: 'carts#apply_coupon';
-
-    # put '/cart', controller: 'shopping_cart', action: 'update';
-    # get '/survivors/reports', controller: 'survivors', action: 'reports';
+    get '/checkout', to: 'checkout#checkout';
 
   end
 end

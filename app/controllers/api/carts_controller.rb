@@ -15,9 +15,10 @@ module Api
             if(!cart)
                 cart = Cart.create(user_id: @current_user.id)
             end
-            cart.add_product(product, quantity)
 
-            return render json: self.api_response("foi", "foi", "foi"),status: :ok
+            product_added = cart.add_product(product, quantity)
+
+            return render json: self.api_response("Product added to cart", product_added),status: :ok
         end
 
         def apply_coupon
@@ -28,12 +29,12 @@ module Api
             # raise Coupon::NotFound, 'This coupon does not exist' if coupon_code && !coupon
             if coupon_code && !coupon
 
-                return render json: self.api_response("Coupon not found", "foi", "foi"),status: :not_found
+                return render json: self.api_response("Coupon not found", []),status: :not_found
 
             else
                 cart.coupon_id = coupon.id
                 cart.save
-                return render json: self.api_response("Coupon has been applied", cart, "foi"),status: :ok
+                return render json: self.api_response("Coupon has been applied", cart),status: :ok
 
             end
         end

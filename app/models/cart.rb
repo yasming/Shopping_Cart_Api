@@ -10,6 +10,7 @@ class Cart < ApplicationRecord
         cart_products = self.cart_products.find_or_create_by(product_id: product.id)
         cart_products.quantity = quantity
         cart_products.save
+        return cart_products
 
     end
 

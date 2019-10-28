@@ -2,8 +2,8 @@
 
 class ApplicationController < ActionController::Base
   
-    def api_response(status, message, data)
-		{status: status, message: message, data: data}
+    def api_response(message, data)
+		{message: message, data: data}
 	end
 
 	def not_found
